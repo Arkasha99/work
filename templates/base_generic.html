@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% block title %}<title>My system</title>{% endblock %}
+</head>
+<style>
+    .sidenav {
+  height: 100%; /* Full-height: remove this if you want "auto" height */
+  width: 160px; /* Set the width of the sidebar */
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 0;
+  background-color: #111; /* Black */
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 20px;
+}
+    .sidenav a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+}
+    .main {
+  margin-left: 160px; /* Same as the width of the sidebar */
+  padding: 0px 10px;
+  font-size: 20px;
+}
+    .sidenav p{
+        padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+    }
+</style>
+<body>
+  {% block sidebar %}
+  <div class="sidenav">
+   {% if user.is_authenticated %}
+     <p>User: {{ user.get_username }}</p>
+     <a href="{% url 'index' %}">Home</a>
+     <a href="{% url 'alltickets' %}">Your profile</a>
+     <a href="{% url 'logout'%}?next={{request.path}}">Logout</a>
+   {% else %}
+     <a href="{% url 'login'%}?next={{request.path}}">Login</a>
+     <a href="{% url 'signup' %}">Registration</a>
+   {% endif %}
+  </div>
+  {% endblock %}
+  {% block content %}{% endblock %}
+
+</body>
+</html>

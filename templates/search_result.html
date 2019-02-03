@@ -1,0 +1,40 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+    <div class="main">
+    <p>You searched for: <strong>{{ query }} to {{ a }} in {{ time }} </strong></p>
+
+    {% if tickets %}
+        <p>Found {{ tickets|length }} ticket{{ tickets|pluralize }}.</p>
+        <table>
+        <tr>
+            <td>Точка отправления</td>
+            <td>Точка прибытия</td>
+            <td>Цена</td>
+            <td>Место</td>
+            <td>Время отправления</td>
+            <td>Время прибытия</td>
+        </tr>
+        {% for ticket in tickets %}
+        <tr>
+            <td>{{ ticket.arpoint }}</td>
+            <td>{{ ticket.dpoint }}</td>
+            <td>{{ ticket.price }}</td>
+            <td>{{ ticket.place }}</td>
+            <td>{{ ticket.adate}}</td>
+            <td>{{ ticket.ddate}}</td>
+            <td><form action="book">
+                <input type="submit" value="Book">
+            </form></td>
+        </tr>
+
+         {% endfor %}
+        </table>
+
+{% else %}
+    <p>No books matched your search criteria.</p>
+
+{% endif %}
+    <a href="{% url 'index' %}">Home page</a>
+    </div>
+{% endblock %}
